@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;       //Allows us to use Lists.
 using Random = UnityEngine.Random;      //Tells Random to use the Unity Engine random number generator.
 
-namespace Completed
+namespace Drill
 	
 {
 	
@@ -26,14 +26,15 @@ namespace Completed
 		}
 		
 		
-		public int columns = 6;                                         //Number of columns in our game board.
-		public int rows = 9;                                            //Number of rows in our game board.
-		public Count blockCount = new Count (5, 9);                      //Lower and upper limit for our random number of walls per level.
+		private int columns = 6;                                         //Number of columns in our game board.
+		private int rows;                                            //Number of rows in our game board.
+		//private Count blockCount = new Count (0, 30);                      //Lower and upper limit for our random number of walls per level.
 		//public GameObject exit;                                         //Prefab to spawn for exit.
 		public GameObject[] floorTiles;                                 //Array of floor prefabs.
-		public GameObject[] blockTiles;                             //Array of outer tile prefabs.
-		
+		public GameObject[] blockTiles;
+		public GameObject nextLevel;		
 		private Transform boardHolder;                                  //A variable to store a reference to the transform of our Board object.
+		private Transform blockHolder; 
 		private List <Vector3> gridPositions = new List <Vector3> ();   //A list of possible locations to place tiles.
 		
 		
@@ -47,7 +48,8 @@ namespace Completed
 			for(int x = 0; x < columns; x++)
 			{
 				//Within each column, loop through y axis (rows).
-				for(int y = 0; y > -rows ; y--)
+				//-10 & +10 para evitar bloques desde el primer momento y al final
+				for(int y = -10; y > -rows+10 ; y--)
 				{
 					//At each index add a new Vector3 to our list with the x and y coordinates of that position.
 					gridPositions.Add (new Vector3(x, y, 0f));
@@ -66,7 +68,7 @@ namespace Completed
 			for(int x = 0; x < columns ; x++)
 			{
 				//Loop along y axis, starting from -1 to place floor or outerwall tiles.
-				for(int y = 0; y > -rows ; y--)
+				for(int y = 0; y > -rows-10 ; y--)
 				{
 					//Choose a random tile from our array of floor tile prefabs and prepare to instantiate it.
 					GameObject toInstantiate = floorTiles[Random.Range (0,floorTiles.Length)];
@@ -77,6 +79,12 @@ namespace Completed
 					
 					//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
 					instance.transform.SetParent (boardHolder);
+
+					//Set Next Level Trigger
+					if(x==3 && y== -rows+1)
+					{
+						Instantiate(nextLevel, new Vector3(x, y, 0f), Quaternion.identity);
+					}
 				}
 			}
 		}
@@ -104,7 +112,7 @@ namespace Completed
 		{
 			//Choose a random number of objects to instantiate within the minimum and maximum limits
 			int objectCount = Random.Range (minimum, maximum+1);
-			
+			blockHolder = new GameObject (tileArray[0].gameObject.tag.ToString()).transform;
 			//Instantiate objects until the randomly chosen limit objectCount is reached
 			for(int i = 0; i < objectCount; i++)
 			{
@@ -115,7 +123,8 @@ namespace Completed
 				GameObject tileChoice = tileArray[Random.Range (0, tileArray.Length)];
 				
 				//Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
-				Instantiate(tileChoice, randomPosition, Quaternion.identity);
+				GameObject instance = Instantiate(tileChoice, randomPosition, Quaternion.identity) as GameObject;
+				instance.transform.SetParent (blockHolder);
 			}
 		}
 		
@@ -123,23 +132,20 @@ namespace Completed
 		//SetupScene initializes our level and calls the previous functions to lay out the game board
 		public void SetupScene (int level)
 		{
+			level = level - 1;
+			//Set rows per level
+			rows = 60 + (10 * level);
 			//Creates the outer walls and floor.
 			BoardSetup ();
-			
 			//Reset our list of gridpositions.
 			InitialiseList ();
-			
 			//Instantiate a random number of wall tiles based on minimum and maximum, at randomized positions.
-			LayoutObjectAtRandom (blockTiles, blockCount.minimum, blockCount.maximum);
-			
-			//Determine number of enemies based on current level number, based on a logarithmic progression
-			//int enemyCount = (int)Mathf.Log(level, 2f);
-			
-			//Instantiate a random number of enemies based on minimum and maximum, at randomized positions.
-			//LayoutObjectAtRandom (enemyTiles, enemyCount, enemyCount);
-			
-			//Instantiate the exit tile in the upper right hand corner of our game board
-			//Instantiate (exit, new Vector3 (columns - 1, rows - 1, 0f), Quaternion.identity);
+			int blockMin = 10 + (15 * level);
+			int blockMax = 30 + (15 * level);
+			LayoutObjectAtRandom (blockTiles, blockMin, blockMax);
+
+			Debug.Log("Rows at level: " + rows);
+			Debug.Log("Blocks Min: "+ blockMin + " Max: " + blockMax);
 		}
 	}
 }
