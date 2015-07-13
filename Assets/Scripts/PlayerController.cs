@@ -10,7 +10,13 @@ namespace Drill
 		public int life = 100;
 		[HideInInspector]public bool isAlive = true;
 		[HideInInspector]public bool levelWin = false;
+		private Vector3 wantedRotation;
 
+		void Awake()
+		{
+			wantedRotation = new Vector3 (transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0);
+
+		}
 		void OnCollisionEnter2D (Collision2D col)
 		{
 			if(col.gameObject.tag == "Block")
@@ -46,7 +52,20 @@ namespace Drill
 
 			Vector2 movement = new Vector2 (moveHorizontal, -1);
 			GetComponent<Rigidbody2D>().velocity = movement * speed;
+			transform.Rotate (Vector3.forward * 1 * moveHorizontal);
+			DrillRotation (moveHorizontal);
 
+		}
+
+		void DrillRotation(float movement)
+		{
+
+			if (movement > 0.6)
+				transform.rotation = Quaternion.Euler (0,0,25);
+			else if (movement < -0.6)
+				transform.rotation = Quaternion.Euler (0,0,-25);
+			else 
+				transform.rotation = Quaternion.Euler (wantedRotation);
 		}
 	}
 }

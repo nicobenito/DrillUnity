@@ -12,6 +12,7 @@ GameObject:
   - 212: {fileID: 21212118}
   - 60: {fileID: 6081212}
   - 114: {fileID: 11491272}
+  - 95: {fileID: 9546452}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -27,12 +28,13 @@ Transform:
   m_GameObject: {fileID: 145570}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.5, y: -2, z: 0}
-  m_LocalScale: {x: .600000024, y: .600000024, z: 1}
+  m_LocalScale: {x: .800000012, y: .800000012, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!50 &5077936
 Rigidbody2D:
+  serializedVersion: 2
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -41,11 +43,11 @@ Rigidbody2D:
   m_LinearDrag: 1.97000003
   m_AngularDrag: 0
   m_GravityScale: 0
-  m_FixedAngle: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!60 &6081212
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -59,11 +61,28 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
-    - - {x: .47850886, y: .111351803}
-      - {x: .378859043, y: .967782319}
-      - {x: -.401134491, y: .98322469}
+    - - {x: .453368008, y: .21191676}
+      - {x: .397715151, y: .816935062}
+      - {x: -.375993252, y: .813521147}
       - {x: -.451112986, y: .159007698}
-      - {x: .00437299395, y: -1.01221871}
+      - {x: -.001912117, y: -.955651164}
+--- !u!95 &9546452
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 145570}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 139b4854e04ad4d4a876003774855209, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11491272
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -103,7 +122,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 354278271
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d961964b5bb012c4982673de36425fc0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e87e2d27140ca04498f02188f767cc4a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
@@ -115,6 +134,15 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e87e2d27140ca04498f02188f767cc4a,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
