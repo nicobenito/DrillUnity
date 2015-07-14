@@ -12,8 +12,8 @@ GameObject:
   - 92: {fileID: 9260172}
   - 124: {fileID: 12444108}
   - 81: {fileID: 8111244}
-  - 114: {fileID: 11438144}
   - 114: {fileID: 11400732}
+  - 114: {fileID: 11457498}
   m_Layer: 0
   m_Name: Main Camera 1
   m_TagString: MainCamera
@@ -65,6 +65,7 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
+  m_StereoMirrorMode: 0
 --- !u!81 &8111244
 AudioListener:
   m_ObjectHideFlags: 1
@@ -91,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 101422, guid: 210a60aef0462624da5b3b25a2e57c0c, type: 2}
---- !u!114 &11438144
+--- !u!114 &11457498
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -117,7 +118,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 453436, guid: 8a6a17a97b55dc84aade9409c2fdefa1, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 198288}

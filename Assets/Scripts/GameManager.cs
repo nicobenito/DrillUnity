@@ -17,6 +17,7 @@ namespace Drill
 		private GameObject playerRef;
 		private PlayerController playerController;
 		//canvas
+		public GameObject canvas;
 		private GameObject levelImage;
 		private Text playerLifeText;
 		private Text levelNumber;
@@ -37,7 +38,7 @@ namespace Drill
 			boardScript = GetComponent<BoardManager>();
 			
 			//Call the InitGame function to initialize the first level 
-			InitGame();
+			//InitGame();
 		}
 		//To restart or level change
 		void OnLevelWasLoaded()
@@ -47,8 +48,9 @@ namespace Drill
 		}
 		
 		//Initializes the game for each level.
-		void InitGame()
+		public void InitGame()
 		{
+			Instantiate (canvas);
 			//set Level number
 			levelNumber = GameObject.Find ("LevelNumber").GetComponent<Text> ();
 			levelNumber.text = "Level "+ level;
@@ -60,10 +62,11 @@ namespace Drill
 			playerLifeText = GameObject.Find ("LifePlayer").GetComponent<Text>();
 			//Call the SetupScene function of the BoardManager script, pass it current level number.
 			boardScript.SetupScene(level);
+			isGameOver=false;
 			
 		}
 
-		void Restart()
+		public void Restart()
 		{
 			Application.LoadLevel (Application.loadedLevel);
 		}
@@ -84,7 +87,6 @@ namespace Drill
 			if (isGameOver && Input.GetKey (KeyCode.Backspace)) 
 			{
 				Restart();
-				isGameOver=false;
 			}
 
 			if (playerController.levelWin) 

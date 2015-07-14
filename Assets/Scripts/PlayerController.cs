@@ -50,20 +50,21 @@ namespace Drill
 
 			Vector2 movement = new Vector2 (moveHorizontal, -1);
 			GetComponent<Rigidbody2D>().velocity = movement * speed;
-			transform.Rotate (Vector3.forward * 1 * moveHorizontal);
 			DrillRotation (moveHorizontal);
+
+			if(Input.GetTouch(0).phase == TouchPhase.Moved)
+			{
+				Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
+				Debug.Log(touchDeltaPosition);
+				touchDeltaPosition = new Vector2(touchDeltaPosition.x,-1);
+				GetComponent<Rigidbody2D>().velocity = touchDeltaPosition;
+			}
 
 		}
 
 		void DrillRotation(float movement)
 		{
 			transform.rotation = Quaternion.Euler (0,0,25*movement);
-			/*if (movement > 0.6)
-				transform.rotation = Quaternion.Euler (0,0,25);
-			else if (movement < -0.6)
-				transform.rotation = Quaternion.Euler (0,0,-25);
-			else 
-				transform.rotation = Quaternion.Euler (wantedRotation);*/
 		}
 	}
 }

@@ -7,7 +7,7 @@ namespace Drill
 	{
 		public GameObject gameManager;          //GameManager prefab to instantiate.
 
-		void Awake ()
+		public void Awake ()
 		{
 			if (GameManager.instance == null)
 				Instantiate(gameManager);
