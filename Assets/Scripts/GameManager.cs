@@ -70,6 +70,13 @@ namespace Drill
 		{
 			Application.LoadLevel (Application.loadedLevel);
 		}
+
+		public void GoMenu()
+		{
+			Application.LoadLevel ("MainMenu");
+			Destroy (instance);
+		}
+
 		public void GameOver()
 		{
 			levelImage.SetActive(true);
