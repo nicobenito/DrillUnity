@@ -14,8 +14,6 @@ namespace Drill
 
 		void Awake()
 		{
-			wantedRotation = new Vector3 (transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0);
-
 		}
 		void OnCollisionEnter2D (Collision2D col)
 		{
@@ -59,13 +57,13 @@ namespace Drill
 
 		void DrillRotation(float movement)
 		{
-
-			if (movement > 0.6)
+			transform.rotation = Quaternion.Euler (0,0,25*movement);
+			/*if (movement > 0.6)
 				transform.rotation = Quaternion.Euler (0,0,25);
 			else if (movement < -0.6)
 				transform.rotation = Quaternion.Euler (0,0,-25);
 			else 
-				transform.rotation = Quaternion.Euler (wantedRotation);
+				transform.rotation = Quaternion.Euler (wantedRotation);*/
 		}
 	}
 }
