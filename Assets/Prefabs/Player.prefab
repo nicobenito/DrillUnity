@@ -34,7 +34,6 @@ Transform:
   m_RootOrder: 0
 --- !u!50 &5077936
 Rigidbody2D:
-  serializedVersion: 2
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -43,11 +42,11 @@ Rigidbody2D:
   m_LinearDrag: 1.97000003
   m_AngularDrag: 0
   m_GravityScale: 0
+  m_FixedAngle: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!60 &6081212
 PolygonCollider2D:
   m_ObjectHideFlags: 1
