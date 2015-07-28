@@ -46,12 +46,13 @@ namespace Drill
 
 		void FixedUpdate ()
 		{
+			//arrow keys movement
 			float moveHorizontal = Input.GetAxis ("Horizontal");
-
 			Vector2 movement = new Vector2 (moveHorizontal, -1);
 			GetComponent<Rigidbody2D>().velocity = movement * speed;
 			DrillRotation (moveHorizontal);
 
+			//touch movement
 			if (Input.touchCount > 0) 
 			{
 				if (Input.GetTouch (0).phase == TouchPhase.Moved) 
@@ -59,7 +60,8 @@ namespace Drill
 					Vector2 touchDeltaPosition = Input.GetTouch (0).deltaPosition;
 					Debug.Log (touchDeltaPosition);
 					touchDeltaPosition = new Vector2 (touchDeltaPosition.x, -1);
-					GetComponent<Rigidbody2D> ().velocity = touchDeltaPosition;
+					GetComponent<Rigidbody2D> ().velocity = touchDeltaPosition * speed;
+					DrillRotation (touchDeltaPosition.x);
 				}
 			}
 
