@@ -58,12 +58,16 @@ namespace Drill
 				if (Input.GetTouch (0).phase == TouchPhase.Moved) 
 				{
 					Vector2 touchDeltaPosition = Input.GetTouch (0).deltaPosition;
-					Debug.Log (touchDeltaPosition);
-					touchDeltaPosition = new Vector2 (touchDeltaPosition.x, -1);
+					touchDeltaPosition = new Vector2 (Mathf.Clamp(touchDeltaPosition.x,-1,1), -1);
 					GetComponent<Rigidbody2D> ().velocity = touchDeltaPosition * speed;
 					DrillRotation (touchDeltaPosition.x);
 				}
 			}
+			GetComponent<Rigidbody2D> ().position = new Vector2 
+				(
+					Mathf.Clamp (GetComponent<Rigidbody2D> ().position.x, 0f, 5f), 
+					GetComponent<Rigidbody2D> ().position.y
+				);
 
 		}
 
