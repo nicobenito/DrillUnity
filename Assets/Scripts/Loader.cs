@@ -6,14 +6,16 @@ namespace Drill
 	public class Loader : MonoBehaviour 
 	{
 		public GameObject gameManager;          //GameManager prefab to instantiate.
-
+		private float s_baseOrthographicSize;
 		public void Awake ()
 		{
 			if (GameManager.instance == null)
 				Instantiate(gameManager);
-
-			float xFactor = Screen.width / 600f;
-			float yFactor = Screen.height  / 900f;
+			// set the camera to the correct orthographic size (so scene pixels are 1:1)
+			s_baseOrthographicSize = Screen.height / 63.0f / 2.0f;
+			Camera.main.orthographicSize = s_baseOrthographicSize;
+			/*float xFactor = Screen.width / 600f;
+			float yFactor = Screen.height  / 900f;*/
 			//Camera.main.rect=new Rect(0,0,1,xFactor/yFactor);
 		}
 		/*public float orthographicSize = 5;

@@ -53,7 +53,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.5
+  orthographic size: 5.3499999
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -65,6 +65,7 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
+  m_StereoMirrorMode: 0
 --- !u!81 &8111244
 AudioListener:
   m_ObjectHideFlags: 1

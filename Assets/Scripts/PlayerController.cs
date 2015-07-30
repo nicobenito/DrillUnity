@@ -8,12 +8,21 @@ namespace Drill
 	{
 		public float speed;
 		public int life = 100;
+		private Animator playerAnimator;
 		[HideInInspector]public bool isAlive = true;
 		[HideInInspector]public bool levelWin = false;
 		private Vector3 wantedRotation;
+		private Light stateLight;
+		private Color newColor;
+		private string redLight="#FF0005FF";
+		private string greenLight="#00FF6BFF";
 
 		void Awake()
 		{
+			playerAnimator = GetComponent<Animator> ();
+			stateLight = GameObject.Find ("StateLight").GetComponent<Light>();
+			Color.TryParseHexString (greenLight, out newColor);
+			stateLight.color = newColor;
 		}
 		void OnCollisionEnter2D (Collision2D col)
 		{
@@ -21,7 +30,11 @@ namespace Drill
 			{
 				Destroy(col.gameObject);
 				life = life-20;
-				//Debug.Log("Drill life: " + life);
+				if(life<=40)
+				{
+					Color.TryParseHexString (redLight, out newColor);
+					stateLight.color = newColor;
+				}
 			}
 			CheckIfGameOver();
 		}
@@ -44,8 +57,9 @@ namespace Drill
 			}
 		}
 
-		void FixedUpdate ()
+		void Update ()
 		{
+			playerAnimator.SetFloat ("Life", life);
 			//arrow keys movement
 			float moveHorizontal = Input.GetAxis ("Horizontal");
 			Vector2 movement = new Vector2 (moveHorizontal, -1);
@@ -68,6 +82,10 @@ namespace Drill
 					Mathf.Clamp (GetComponent<Rigidbody2D> ().position.x, 0f, 5f), 
 					GetComponent<Rigidbody2D> ().position.y
 				);
+
+			//LightPong
+			if (life <= 40)
+				stateLight.intensity = Mathf.PingPong (Time.time * 8f, 5);
 
 		}
 
