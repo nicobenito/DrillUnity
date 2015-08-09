@@ -12,8 +12,16 @@ namespace Drill
 			if (GameManager.instance == null)
 				Instantiate(gameManager);
 			// set the camera to the correct orthographic size (so scene pixels are 1:1)
-			s_baseOrthographicSize = Screen.height / 63.0f / 2.0f;
-			Camera.main.orthographicSize = s_baseOrthographicSize;
+			/*var height = 2*Camera.main.orthographicSize;
+			var width = height*Camera.main.aspect;
+			
+			Camera.main.aspect = Screen.width / Screen.height;
+			Camera.main.orthographicSize = Screen.height / 2f;*/
+			//Camera Size = y / (2 * s);
+			Camera.main.orthographicSize = Screen.height / (2f * 80f);
+			/*s_baseOrthographicSize = Screen.height / 120f;
+			Camera.main.orthographicSize = s_baseOrthographicSize;*/
+
 			/*float xFactor = Screen.width / 600f;
 			float yFactor = Screen.height  / 900f;*/
 			//Camera.main.rect=new Rect(0,0,1,xFactor/yFactor);

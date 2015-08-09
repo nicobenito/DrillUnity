@@ -16,6 +16,7 @@ namespace Drill
 		private Color newColor;
 		private string redLight="#FF0005FF";
 		private string greenLight="#00FF6BFF";
+		private Vector2 fingerPos;
 
 		void Awake()
 		{
@@ -69,13 +70,22 @@ namespace Drill
 			//touch movement
 			if (Input.touchCount > 0) 
 			{
-				if (Input.GetTouch (0).phase == TouchPhase.Moved) 
+				fingerPos= Input.GetTouch(0).position;
+				if(fingerPos.x < Screen.width/2)
+					movement = new Vector2(-1,-1);
+				else
+					movement = new Vector2(1,-1);
+
+				GetComponent<Rigidbody2D> ().velocity = movement * speed;
+				DrillRotation (movement.x);
+
+				/*if (Input.GetTouch (0).phase == TouchPhase.Moved) 
 				{
 					Vector2 touchDeltaPosition = Input.GetTouch (0).deltaPosition;
 					touchDeltaPosition = new Vector2 (Mathf.Clamp(touchDeltaPosition.x,-1,1), -1);
 					GetComponent<Rigidbody2D> ().velocity = touchDeltaPosition * speed;
 					DrillRotation (touchDeltaPosition.x);
-				}
+				}*/
 			}
 			GetComponent<Rigidbody2D> ().position = new Vector2 
 				(
