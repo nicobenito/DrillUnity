@@ -22,6 +22,8 @@ namespace Drill
 		private Text playerLifeText;
 		private Text playerScoreText;
         private Text levelNumber;
+		private GameObject allBlocks;
+		private GameObject mainCamera;
 
 
 		//Awake is always called before any Start functions
@@ -52,6 +54,7 @@ namespace Drill
 		public void InitGame()
 		{
 			Instantiate (canvas);
+			mainCamera = GameObject.Find ("Main Camera 2");
 			//set Level number
 			levelNumber = GameObject.Find ("LevelNumber").GetComponent<Text> ();
 			levelNumber.text = "Level "+ level;
@@ -64,6 +67,7 @@ namespace Drill
 			playerScoreText = GameObject.Find ("ScorePlayer").GetComponent<Text>();
 			//Call the SetupScene function of the BoardManager script, pass it current level number.
 			boardScript.SetupScene(level);
+			allBlocks = GameObject.Find ("Blocks");
 			isGameOver=false;
 			
 		}
@@ -79,6 +83,10 @@ namespace Drill
 			Destroy (instance);
 		}
 
+		private void CleanBlocks()
+		{
+			Destroy (allBlocks);
+		}
 		public void GameOver()
 		{
 			levelImage.SetActive(true);
@@ -91,18 +99,24 @@ namespace Drill
 			playerLifeText.text = "Life " + playerController.life;
 			playerScoreText.text = "Score " + playerController.score;
 
+			if (playerController.life <= 0)
+				CleanBlocks ();
+
             if (!isGameOver && !playerController.isAlive)
-				GameOver ();
+				Invoke ("GameOver", 1.5f);
+				//GameOver ();
 
 			if (isGameOver && Input.GetKey (KeyCode.Backspace)) 
 			{
-				Restart();
+				Invoke("Restart",1f);
 			}
 
 			if (playerController.levelWin) 
 			{
+				playerController.levelWin = false;
+				mainCamera.GetComponent<SmoothCamera2D>().enabled = false;
 				level++;
-				Restart();
+				Invoke("Restart",2f);
 			}
 		}
 	}

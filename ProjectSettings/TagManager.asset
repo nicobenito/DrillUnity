@@ -47,12 +47,12 @@ TagManager:
   - name: Floor
     uniqueID: 4028737813
     locked: 0
-  - name: Blockers
-    uniqueID: 383454871
-    locked: 0
   - name: Items
     uniqueID: 157890831
     locked: 0
   - name: Player
     uniqueID: 354278271
+    locked: 0
+  - name: Blockers
+    uniqueID: 383454871
     locked: 0

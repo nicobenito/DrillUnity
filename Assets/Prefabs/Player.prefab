@@ -218,6 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   life: 100
+  score: 0
   isAlive: 1
   levelWin: 0
 --- !u!212 &21212118

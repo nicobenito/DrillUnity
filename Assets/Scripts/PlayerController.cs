@@ -17,6 +17,8 @@ namespace Drill
 		private string redLight="#FF0005FF";
 		private string greenLight="#00FF6BFF";
 		private Vector2 fingerPos;
+		private Animator blockAnimator;
+		private bool canMove = true;
 
 		void Awake()
 		{
@@ -29,7 +31,10 @@ namespace Drill
 		{
 			if(col.gameObject.tag == "Block")
 			{
-				Destroy(col.gameObject);
+				col.collider.enabled = false;
+				blockAnimator = col.gameObject.GetComponent<Animator>();
+				blockAnimator.SetBool ("HitDrill", true);
+				//Destroy(col.gameObject);
 				life -= 20;
 				if(life<=40)
 				{
@@ -42,7 +47,7 @@ namespace Drill
                 Destroy(col.gameObject);
                 score += 50;
             }
-			CheckIfGameOver();
+			//CheckIfGameOver();
 		}
 
 		void OnTriggerEnter2D (Collider2D other)
@@ -54,25 +59,35 @@ namespace Drill
 			}
 		}
 
-		private void CheckIfGameOver ()
+//		private void CheckIfGameOver ()
+//		{
+//			if (life <= 0) 
+//			{			
+//				isAlive = false;
+//				enabled = false;
+//			}
+//		}
+
+		private void KillMovement()
 		{
-			if (life <= 0) 
-			{			
-				isAlive = false;
-				enabled = false;
-			}
+			stateLight.intensity = 0f;
+			canMove = false;
+			GetComponent<Collider2D> ().enabled = false;
+		}
+		private void DrillGameOver()
+		{
+			isAlive = false;
+			enabled = false;
+			Destroy (gameObject);
 		}
 
-		void Update ()
+		private void DrillMovement(float Xdirection, float ySpeed)
 		{
-			playerAnimator.SetFloat ("Life", life);
-            playerAnimator.SetFloat("Score", score);
-            //arrow keys movement
-            float moveHorizontal = Input.GetAxis ("Horizontal");
-			Vector2 movement = new Vector2 (moveHorizontal, -1);
+			//float moveHorizontal = Input.GetAxis ("Horizontal");
+			Vector2 movement = new Vector2 (Xdirection, ySpeed);
 			GetComponent<Rigidbody2D>().velocity = movement * speed;
-			DrillRotation (moveHorizontal);
-
+			DrillRotation (Xdirection);
+			
 			//touch movement
 			if (Input.touchCount > 0) 
 			{
@@ -81,33 +96,41 @@ namespace Drill
 					movement = new Vector2(-1,-1);
 				else
 					movement = new Vector2(1,-1);
-
+				
 				GetComponent<Rigidbody2D> ().velocity = movement * speed;
 				DrillRotation (movement.x);
-
-				/*if (Input.GetTouch (0).phase == TouchPhase.Moved) 
-				{
-					Vector2 touchDeltaPosition = Input.GetTouch (0).deltaPosition;
-					touchDeltaPosition = new Vector2 (Mathf.Clamp(touchDeltaPosition.x,-1,1), -1);
-					GetComponent<Rigidbody2D> ().velocity = touchDeltaPosition * speed;
-					DrillRotation (touchDeltaPosition.x);
-				}*/
 			}
-			GetComponent<Rigidbody2D> ().position = new Vector2 
-				(
-					Mathf.Clamp (GetComponent<Rigidbody2D> ().position.x, 0f, 5f), 
-					GetComponent<Rigidbody2D> ().position.y
-				);
-
-			//LightPong
-			if (life <= 40)
-				stateLight.intensity = Mathf.PingPong (Time.time * 8f, 5);
-
 		}
 
 		void DrillRotation(float movement)
 		{
 			transform.rotation = Quaternion.Euler (0,0,25*movement);
 		}
+
+		void Update ()
+		{
+			playerAnimator.SetFloat ("Life", life);
+            playerAnimator.SetFloat("Score", score);
+            
+			if (canMove)
+				DrillMovement (Input.GetAxis ("Horizontal"),-1f);
+			else {
+				float finalSpeed = Mathf.SmoothStep (-1f, 0f, 0.8f);
+				DrillMovement(0f,finalSpeed);
+			}
+
+			//level boundaries
+			GetComponent<Rigidbody2D> ().position = new Vector2 
+				(
+					Mathf.Clamp (GetComponent<Rigidbody2D> ().position.x, 0f, 5f), 
+					GetComponent<Rigidbody2D> ().position.y
+				);
+
+			//LightPong (red light when damaged)
+			if (life <= 40)
+				stateLight.intensity = Mathf.PingPong (Time.time * 8f, 5);
+
+		}
+
 	}
 }

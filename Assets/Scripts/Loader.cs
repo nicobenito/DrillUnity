@@ -17,7 +17,7 @@ namespace Drill
 			Camera.main.aspect = Screen.width / Screen.height;
 			Camera.main.orthographicSize = Screen.height / 2f;*/
 			//Camera Size = y / (2 * s);
-			Camera.main.orthographicSize = Screen.height / (2f * 80f);
+			//////Camera.main.orthographicSize = Screen.height / (2f * 80f);
 			/*s_baseOrthographicSize = Screen.height / 120f;
 			Camera.main.orthographicSize = s_baseOrthographicSize;*/
 
