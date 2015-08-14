@@ -20,7 +20,8 @@ namespace Drill
 		public GameObject canvas;
 		private GameObject levelImage;
 		private Text playerLifeText;
-		private Text levelNumber;
+		private Text playerScoreText;
+        private Text levelNumber;
 
 
 		//Awake is always called before any Start functions
@@ -60,6 +61,7 @@ namespace Drill
 			levelImage = GameObject.Find ("LevelImage");
 			levelImage.SetActive (false);
 			playerLifeText = GameObject.Find ("LifePlayer").GetComponent<Text>();
+			playerScoreText = GameObject.Find ("ScorePlayer").GetComponent<Text>();
 			//Call the SetupScene function of the BoardManager script, pass it current level number.
 			boardScript.SetupScene(level);
 			isGameOver=false;
@@ -87,8 +89,9 @@ namespace Drill
 		void Update()
 		{
 			playerLifeText.text = "Life " + playerController.life;
+			playerScoreText.text = "Score " + playerController.score;
 
-			if (!isGameOver && !playerController.isAlive)
+            if (!isGameOver && !playerController.isAlive)
 				GameOver ();
 
 			if (isGameOver && Input.GetKey (KeyCode.Backspace)) 

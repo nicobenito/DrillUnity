@@ -6,7 +6,6 @@ namespace Drill
 	public class Loader : MonoBehaviour 
 	{
 		public GameObject gameManager;          //GameManager prefab to instantiate.
-		private float s_baseOrthographicSize;
 		public void Awake ()
 		{
 			if (GameManager.instance == null)

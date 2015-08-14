@@ -8,10 +8,10 @@ namespace Drill
 	{
 		public float speed;
 		public int life = 100;
-		private Animator playerAnimator;
+        [HideInInspector]public int score = 0;
+        private Animator playerAnimator;
 		[HideInInspector]public bool isAlive = true;
 		[HideInInspector]public bool levelWin = false;
-		private Vector3 wantedRotation;
 		private Light stateLight;
 		private Color newColor;
 		private string redLight="#FF0005FF";
@@ -30,13 +30,18 @@ namespace Drill
 			if(col.gameObject.tag == "Block")
 			{
 				Destroy(col.gameObject);
-				life = life-20;
+				life -= 20;
 				if(life<=40)
 				{
 					Color.TryParseHexString (redLight, out newColor);
 					stateLight.color = newColor;
 				}
 			}
+            else if (col.gameObject.tag == "Diamonds")
+            {
+                Destroy(col.gameObject);
+                score += 50;
+            }
 			CheckIfGameOver();
 		}
 
@@ -61,8 +66,9 @@ namespace Drill
 		void Update ()
 		{
 			playerAnimator.SetFloat ("Life", life);
-			//arrow keys movement
-			float moveHorizontal = Input.GetAxis ("Horizontal");
+            playerAnimator.SetFloat("Score", score);
+            //arrow keys movement
+            float moveHorizontal = Input.GetAxis ("Horizontal");
 			Vector2 movement = new Vector2 (moveHorizontal, -1);
 			GetComponent<Rigidbody2D>().velocity = movement * speed;
 			DrillRotation (moveHorizontal);

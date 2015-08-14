@@ -12,7 +12,7 @@ GameObject:
   - 58: {fileID: 5876386}
   - 95: {fileID: 9520844}
   m_Layer: 0
-  m_Name: Block2
+  m_Name: Block
   m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -63,7 +63,7 @@ GameObject:
   - 222: {fileID: 22201326}
   - 114: {fileID: 11412978}
   m_Layer: 5
-  m_Name: LifePlayer
+  m_Name: ScorePlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,6 +156,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &198662
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 22403544}
+  - 222: {fileID: 22231692}
+  - 114: {fileID: 11436156}
+  m_Layer: 5
+  m_Name: LifePlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!114 &11412978
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -168,7 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: .33088237, b: .33088237, a: 1}
+  m_Color: {r: 1, g: 1, b: .33088237, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: d269c43adf2335242834cd625a984f43, type: 3}
     m_FontSize: 24
@@ -176,12 +193,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 5
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Life 100
+  m_Text: Score 0
 --- !u!114 &11416614
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -229,6 +246,32 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11436156
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 198662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: .33088237, b: .33088237, a: 1}
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: d269c43adf2335242834cd625a984f43, type: 3}
+    m_FontSize: 24
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 3
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Life 100
 --- !u!114 &11436444
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -522,6 +565,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 129900}
+--- !u!222 &22231692
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 198662}
 --- !u!222 &22234946
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -557,6 +606,23 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!224 &22403544
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 198662}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 22444978}
+  m_RootOrder: 1
+  m_AnchorMin: {x: .5, y: .5}
+  m_AnchorMax: {x: .5, y: .5}
+  m_AnchoredPosition: {x: -150, y: 262.429993}
+  m_SizeDelta: {x: 159, y: 30}
+  m_Pivot: {x: .5, y: .5}
 --- !u!224 &22406968
 RectTransform:
   m_ObjectHideFlags: 1
@@ -621,9 +687,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22444978}
   m_RootOrder: 0
-  m_AnchorMin: {x: .5, y: 1}
-  m_AnchorMax: {x: .5, y: 1}
-  m_AnchoredPosition: {x: 38.7000008, y: -37.5699997}
+  m_AnchorMin: {x: .5, y: .5}
+  m_AnchorMax: {x: .5, y: .5}
+  m_AnchoredPosition: {x: 150, y: 262.429993}
   m_SizeDelta: {x: 159, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22442528
@@ -640,7 +706,7 @@ RectTransform:
   - {fileID: 22480460}
   - {fileID: 22420172}
   m_Father: {fileID: 22444978}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -657,6 +723,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22435776}
+  - {fileID: 22403544}
   - {fileID: 22488832}
   - {fileID: 22442528}
   m_Father: {fileID: 0}
@@ -712,7 +779,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 22444978}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_AnchorMin: {x: .5, y: 1}
   m_AnchorMax: {x: .5, y: 1}
   m_AnchoredPosition: {x: 0, y: -16.8099995}

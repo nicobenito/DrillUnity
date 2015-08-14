@@ -108,11 +108,11 @@ namespace Drill
 		
 		
 		//LayoutObjectAtRandom accepts an array of game objects to choose from along with a minimum and maximum range for the number of objects to create.
-		void LayoutObjectAtRandom (GameObject[] tileArray, int minimum, int maximum)
+		void LayoutObjectAtRandom (GameObject[] tileArray, int minimum, int maximum, string parentCategoryName)
 		{
 			//Choose a random number of objects to instantiate within the minimum and maximum limits
 			int objectCount = Random.Range (minimum, maximum+1);
-			blockHolder = new GameObject (tileArray[0].gameObject.tag.ToString()).transform;
+			blockHolder = new GameObject (parentCategoryName).transform;
 			//Instantiate objects until the randomly chosen limit objectCount is reached
 			for(int i = 0; i < objectCount; i++)
 			{
@@ -128,7 +128,6 @@ namespace Drill
 			}
 		}
 		
-		
 		//SetupScene initializes our level and calls the previous functions to lay out the game board
 		public void SetupScene (int level)
 		{
@@ -142,7 +141,7 @@ namespace Drill
 			//Instantiate a random number of wall tiles based on minimum and maximum, at randomized positions.
 			int blockMin = 10 + (15 * level);
 			int blockMax = 30 + (15 * level);
-			LayoutObjectAtRandom (blockTiles, blockMin, blockMax);
+			LayoutObjectAtRandom (blockTiles, blockMin, blockMax, "Blocks");
 
 			Debug.Log("Rows at level: " + rows);
 			Debug.Log("Blocks Min: "+ blockMin + " Max: " + blockMax);
