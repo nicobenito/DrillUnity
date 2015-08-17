@@ -8,7 +8,7 @@ namespace Drill
 	{
 		public float speed;
 		public int life = 100;
-        [HideInInspector]public int score = 0;
+		[HideInInspector]public int score;
         private Animator playerAnimator;
 		[HideInInspector]public bool isAlive = true;
 		[HideInInspector]public bool levelWin = false;
@@ -71,6 +71,7 @@ namespace Drill
 		private void KillMovement()
 		{
 			stateLight.intensity = 0f;
+			stateLight.enabled = false;
 			canMove = false;
 			GetComponent<Collider2D> ().enabled = false;
 		}
@@ -110,7 +111,6 @@ namespace Drill
 		void Update ()
 		{
 			playerAnimator.SetFloat ("Life", life);
-            playerAnimator.SetFloat("Score", score);
             
 			if (canMove)
 				DrillMovement (Input.GetAxis ("Horizontal"),-1f);

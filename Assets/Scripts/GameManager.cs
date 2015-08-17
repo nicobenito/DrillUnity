@@ -11,7 +11,9 @@ namespace Drill
 		
 		public static GameManager instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
 		private BoardManager boardScript;                       //Store a reference to our BoardManager which will set up the level.
+		//level and score, constant trough reset
 		private int level = 1;
+		private int score = 0;
 		private bool isGameOver = false;
 		//player
 		private GameObject playerRef;
@@ -24,7 +26,6 @@ namespace Drill
         private Text levelNumber;
 		private GameObject allBlocks;
 		private GameObject mainCamera;
-
 
 		//Awake is always called before any Start functions
 		void Awake()
@@ -41,13 +42,15 @@ namespace Drill
 			boardScript = GetComponent<BoardManager>();
 			
 			//Call the InitGame function to initialize the first level 
-			//InitGame();
+			InitGame();
 		}
 		//To restart or level change
 		void OnLevelWasLoaded()
 		{
 			//Call InitGame to initialize our level.
-			InitGame();
+			if (level !=1) {
+				InitGame ();
+			}
 		}
 		
 		//Initializes the game for each level.
@@ -61,6 +64,7 @@ namespace Drill
 			//player reference and lifeText setup
 			playerRef = GameObject.Find ("Player");
 			playerController = playerRef.GetComponent<PlayerController>();
+			playerController.score = score;
 			levelImage = GameObject.Find ("LevelImage");
 			levelImage.SetActive (false);
 			playerLifeText = GameObject.Find ("LifePlayer").GetComponent<Text>();
@@ -116,6 +120,7 @@ namespace Drill
 				playerController.levelWin = false;
 				mainCamera.GetComponent<SmoothCamera2D>().enabled = false;
 				level++;
+				score = playerController.score;
 				Invoke("Restart",2f);
 			}
 		}
