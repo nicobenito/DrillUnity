@@ -71,8 +71,9 @@ namespace Drill
 			boardScript.SetupScene(level);
 			allBlocks = GameObject.Find ("Blocks");
 			isGameOver=false;
-			
-		}
+
+            InitLights();
+        }
 
 		public void Restart()
 		{
@@ -96,7 +97,16 @@ namespace Drill
 
 		}
 
-		void Update()
+        public void InitLights()
+        {
+            var mainLight = GameObject.Find("MainLight").GetComponent<Light>();
+            mainLight.intensity -= 0.5f * level; // The camera gets darker, the deeper de drill goes
+
+            var spotLight = GameObject.Find("Spotlight").GetComponent<Light>();
+            spotLight.intensity += 1 * level;
+        }
+
+        void Update()
 		{
 			playerLifeText.text = "Life " + playerController.life;
 			playerScoreText.text = "Score " + playerController.score;
