@@ -59,15 +59,6 @@ namespace Drill
 			}
 		}
 
-//		private void CheckIfGameOver ()
-//		{
-//			if (life <= 0) 
-//			{			
-//				isAlive = false;
-//				enabled = false;
-//			}
-//		}
-
 		private void KillMovement()
 		{
 			stateLight.intensity = 0f;

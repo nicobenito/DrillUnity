@@ -41,16 +41,14 @@ namespace Drill
 			DontDestroyOnLoad(gameObject);
 			boardScript = GetComponent<BoardManager>();
 			
-			//Call the InitGame function to initialize the first level 
+			//IMPORTANT! This is just for development, on production delete!
 			InitGame();
 		}
 		//To restart or level change
 		void OnLevelWasLoaded()
 		{
 			//Call InitGame to initialize our level.
-			if (level !=1) {
-				InitGame ();
-			}
+			InitGame ();
 		}
 		
 		//Initializes the game for each level.
