@@ -47,7 +47,7 @@ namespace Drill
 				blockAnimator = col.gameObject.GetComponent<Animator>();
 				blockAnimator.SetBool ("HitDrill", true);
 				//Destroy(col.gameObject);
-				life -= 20;
+				HitDamage();
 				if(life<=40)
 				{
 					Color.TryParseHexString (redLight, out newColor);
@@ -64,6 +64,11 @@ namespace Drill
                 audioSourcePickupCoin.Play();
             }
 			//CheckIfGameOver();
+		}
+
+		public void HitDamage()
+		{
+			life -= 20;
 		}
 
 		void OnTriggerEnter2D (Collider2D other)

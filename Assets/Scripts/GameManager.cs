@@ -18,14 +18,17 @@ namespace Drill
 		//player
 		private GameObject playerRef;
 		private PlayerController playerController;
+		private int prePlayerLife;
 		//canvas
 		public GameObject canvas;
 		private GameObject levelImage;
+		private GameObject faderScreen;
 		private Text playerLifeText;
 		private Text playerScoreText;
         private Text levelNumber;
 		private GameObject allBlocks;
 		private GameObject mainCamera;
+		private bool hitIsFading = false;
 
 		//Awake is always called before any Start functions
 		void Awake()
@@ -40,7 +43,7 @@ namespace Drill
 
 			DontDestroyOnLoad(gameObject);
 			boardScript = GetComponent<BoardManager>();
-			
+
 			//IMPORTANT! This is just for development, on production delete!
 			InitGame();
 		}
@@ -63,8 +66,11 @@ namespace Drill
 			playerRef = GameObject.Find ("Player");
 			playerController = playerRef.GetComponent<PlayerController>();
 			playerController.score = score;
+			prePlayerLife = playerController.life;
 			levelImage = GameObject.Find ("LevelImage");
+			faderScreen = GameObject.Find ("FaderScreen");
 			levelImage.SetActive (false);
+			faderScreen.SetActive (false);
 			playerLifeText = GameObject.Find ("LifePlayer").GetComponent<Text>();
 			playerScoreText = GameObject.Find ("ScorePlayer").GetComponent<Text>();
 			//Call the SetupScene function of the BoardManager script, pass it current level number.
@@ -94,7 +100,6 @@ namespace Drill
 		{
 			levelImage.SetActive(true);
 			isGameOver = true;
-
 		}
 
         public void InitLights()
@@ -103,8 +108,21 @@ namespace Drill
             mainLight.intensity -= 0.5f * level; // The camera gets darker, the deeper de drill goes
 
             var spotLight = GameObject.Find("Spotlight").GetComponent<Light>();
-            spotLight.intensity += 1 * level; // Spotlight gets brighter, the deeper de drill goes
+            spotLight.intensity += 0.4f * level; // Spotlight gets brighter, the deeper de drill goes
+			//max spotlight intensity 2f
+			if (spotLight.intensity > 2f)
+				spotLight.intensity = 2f;
         }
+
+		//RedScreen for Players Hits
+		void HitWarning()
+		{
+			faderScreen.SetActive (true);
+			Image redSplash = faderScreen.GetComponent<Image> ();
+			redSplash.color = Color.Lerp(redSplash.color, Color.clear, 2f * Time.deltaTime);
+			if (redSplash.color.a <= 0.05f)
+				prePlayerLife = playerController.life;
+		}
 
         void Update()
 		{
@@ -116,8 +134,9 @@ namespace Drill
 
             if (!isGameOver && !playerController.isAlive)
 				Invoke ("GameOver", 1.5f);
-				//GameOver ();
-
+			if (playerController.life != prePlayerLife)
+				HitWarning ();
+			//GameOver ();
 			if (isGameOver && Input.GetKey (KeyCode.Backspace)) 
 			{
 				Invoke("Restart",1f);
