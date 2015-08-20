@@ -20,14 +20,26 @@ namespace Drill
 		private Animator blockAnimator;
 		private bool canMove = true;
 
-		void Awake()
+        // SOUND
+        private AudioSource audioSourcePickupCoin;
+        private AudioSource backgroundMusic;
+        private AudioSource audioSourceSmallExplosion;
+        private AudioSource audioSourceBigExplosion;
+
+        void Awake()
 		{
 			playerAnimator = GetComponent<Animator> ();
 			stateLight = GameObject.Find ("StateLight").GetComponent<Light>();
 			Color.TryParseHexString (greenLight, out newColor);
 			stateLight.color = newColor;
-		}
-		void OnCollisionEnter2D (Collision2D col)
+
+            // SOUND
+            audioSourcePickupCoin = GameObject.Find("SoundPickupDiamond").GetComponent<AudioSource>();
+            backgroundMusic = GameObject.Find("BackgroundMusic").GetComponent<AudioSource>();
+            audioSourceSmallExplosion = GameObject.Find("SoundSmallExplosion").GetComponent<AudioSource>();
+            audioSourceBigExplosion = GameObject.Find("SoundBigExplosion").GetComponent<AudioSource>();
+        }
+        void OnCollisionEnter2D (Collision2D col)
 		{
 			if(col.gameObject.tag == "Block")
 			{
@@ -41,11 +53,15 @@ namespace Drill
 					Color.TryParseHexString (redLight, out newColor);
 					stateLight.color = newColor;
 				}
-			}
+
+                audioSourceSmallExplosion.Play();
+            }
             else if (col.gameObject.tag == "Diamonds")
             {
                 Destroy(col.gameObject);
                 score += 50;
+
+                audioSourcePickupCoin.Play();
             }
 			//CheckIfGameOver();
 		}
@@ -65,6 +81,10 @@ namespace Drill
 			stateLight.enabled = false;
 			canMove = false;
 			GetComponent<Collider2D> ().enabled = false;
+
+            // SOUND
+            audioSourceBigExplosion.Play();
+            backgroundMusic.Stop();
 		}
 		private void DrillGameOver()
 		{

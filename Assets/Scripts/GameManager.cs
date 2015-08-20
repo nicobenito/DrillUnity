@@ -103,7 +103,7 @@ namespace Drill
             mainLight.intensity -= 0.5f * level; // The camera gets darker, the deeper de drill goes
 
             var spotLight = GameObject.Find("Spotlight").GetComponent<Light>();
-            spotLight.intensity += 1 * level;
+            spotLight.intensity += 1 * level; // Spotlight gets brighter, the deeper de drill goes
         }
 
         void Update()
