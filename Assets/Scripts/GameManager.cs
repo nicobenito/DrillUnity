@@ -23,12 +23,13 @@ namespace Drill
 		public GameObject canvas;
 		private GameObject levelImage;
 		private GameObject faderScreen;
+		private Image redSplash;
+		private Color redSplashColor;
 		private Text playerLifeText;
 		private Text playerScoreText;
         private Text levelNumber;
 		private GameObject allBlocks;
 		private GameObject mainCamera;
-		private bool hitIsFading = false;
 
 		//Awake is always called before any Start functions
 		void Awake()
@@ -69,6 +70,9 @@ namespace Drill
 			prePlayerLife = playerController.life;
 			levelImage = GameObject.Find ("LevelImage");
 			faderScreen = GameObject.Find ("FaderScreen");
+			Color.TryParseHexString ("#870000AA", out redSplashColor);
+			redSplash = faderScreen.GetComponent<Image> ();//#870000AA
+			redSplash.color = redSplashColor;
 			levelImage.SetActive (false);
 			faderScreen.SetActive (false);
 			playerLifeText = GameObject.Find ("LifePlayer").GetComponent<Text>();
@@ -118,10 +122,14 @@ namespace Drill
 		void HitWarning()
 		{
 			faderScreen.SetActive (true);
-			Image redSplash = faderScreen.GetComponent<Image> ();
-			redSplash.color = Color.Lerp(redSplash.color, Color.clear, 2f * Time.deltaTime);
-			if (redSplash.color.a <= 0.05f)
+			redSplash.color = Color.Lerp(redSplash.color, Color.clear, 5f * Time.deltaTime);
+			Debug.Log ("Transition:" + 4f * Time.deltaTime);
+			if (redSplash.color.a <= 0.05f) 
+			{
 				prePlayerLife = playerController.life;
+				redSplash.color = redSplashColor;
+				faderScreen.SetActive(false);
+			}
 		}
 
         void Update()
