@@ -23,8 +23,10 @@ namespace Drill
 		public GameObject canvas;
 		private GameObject levelImage;
 		private GameObject faderScreen;
-		private Image redSplash;
+		private Image screenSplash;
 		private Color redSplashColor;
+		private Color blueSplashColor;
+		private bool isFading = false;
 		private Text playerLifeText;
 		private Text playerScoreText;
         private Text levelNumber;
@@ -70,9 +72,10 @@ namespace Drill
 			prePlayerLife = playerController.life;
 			levelImage = GameObject.Find ("LevelImage");
 			faderScreen = GameObject.Find ("FaderScreen");
-			Color.TryParseHexString ("#870000AA", out redSplashColor);
-			redSplash = faderScreen.GetComponent<Image> ();//#870000AA
-			redSplash.color = redSplashColor;
+			Color.TryParseHexString ("#870000E4", out redSplashColor);
+			Color.TryParseHexString ("#001187E4", out blueSplashColor);
+			screenSplash = faderScreen.GetComponent<Image> ();
+			screenSplash.color = redSplashColor;
 			levelImage.SetActive (false);
 			faderScreen.SetActive (false);
 			playerLifeText = GameObject.Find ("LifePlayer").GetComponent<Text>();
@@ -119,16 +122,34 @@ namespace Drill
         }
 
 		//RedScreen for Players Hits
-		void HitWarning()
+		void HitWarning(Color splashColor, string textName)
 		{
+			if (!isFading) 
+			{
+				screenSplash.color = splashColor;
+				isFading = true;
+			}
+
 			faderScreen.SetActive (true);
-			redSplash.color = Color.Lerp(redSplash.color, Color.clear, 5f * Time.deltaTime);
-			Debug.Log ("Transition:" + 4f * Time.deltaTime);
-			if (redSplash.color.a <= 0.05f) 
+			screenSplash.color = Color.Lerp(screenSplash.color, Color.clear, 5f * Time.deltaTime);
+			if (textName == "life") {
+				playerLifeText.transform.localScale = new Vector3 (Mathf.Lerp (playerLifeText.transform.localScale.x, 1.2f, 9f * Time.deltaTime),
+				                                                   Mathf.Lerp (playerLifeText.transform.localScale.y, 1.2f, 9f * Time.deltaTime),
+				                                                   1f);
+			} else {
+				playerScoreText.transform.localScale = new Vector3 (Mathf.Lerp (playerScoreText.transform.localScale.x, 1.2f, 9f * Time.deltaTime),
+				                                                    Mathf.Lerp (playerScoreText.transform.localScale.y, 1.2f, 9f * Time.deltaTime),
+				                                                    1f);
+			}
+			if (screenSplash.color.a <= 0.05f) 
 			{
 				prePlayerLife = playerController.life;
-				redSplash.color = redSplashColor;
+				score = playerController.score;
+				screenSplash.color = redSplashColor;
 				faderScreen.SetActive(false);
+				playerLifeText.transform.localScale = new Vector3 (1f,1f,1f);
+				playerScoreText.transform.localScale = new Vector3 (1f,1f,1f);
+				isFading = false;
 			}
 		}
 
@@ -143,7 +164,9 @@ namespace Drill
             if (!isGameOver && !playerController.isAlive)
 				Invoke ("GameOver", 1.5f);
 			if (playerController.life != prePlayerLife)
-				HitWarning ();
+				HitWarning (redSplashColor,"life");
+			if (score != playerController.score)
+				HitWarning (blueSplashColor,"score");
 			//GameOver ();
 			if (isGameOver && Input.GetKey (KeyCode.Backspace)) 
 			{
