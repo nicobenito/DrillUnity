@@ -14,8 +14,8 @@ namespace Drill
 		[HideInInspector]public bool levelWin = false;
 		private Light stateLight;
 		private Color newColor;
-		private string redLight="#FF0005FF";
-		private string greenLight="#00FF6BFF";
+		private Color redLight= new Color(244, 66, 217);
+		private Color greenLight=new Color(244, 66, 217);
 		private Vector2 fingerPos;
 		private Animator blockAnimator;
 		private bool canMove = true;
@@ -30,8 +30,8 @@ namespace Drill
 		{
 			playerAnimator = GetComponent<Animator> ();
 			stateLight = GameObject.Find ("StateLight").GetComponent<Light>();
-			Color.TryParseHexString (greenLight, out newColor);
-			stateLight.color = newColor;
+			//Color.TryParseHexString (greenLight, out newColor);
+			stateLight.color = greenLight;
 
             // SOUND
             audioSourcePickupCoin = GameObject.Find("SoundPickupDiamond").GetComponent<AudioSource>();
@@ -50,8 +50,8 @@ namespace Drill
 				HitDamage();
 				if(life<=40)
 				{
-					Color.TryParseHexString (redLight, out newColor);
-					stateLight.color = newColor;
+					//Color.TryParseHexString (redLight, out newColor);
+					stateLight.color = redLight;
 				}
 
                 audioSourceSmallExplosion.Play();

@@ -72,8 +72,10 @@ namespace Drill
 			prePlayerLife = playerController.life;
 			levelImage = GameObject.Find ("LevelImage");
 			faderScreen = GameObject.Find ("FaderScreen");
-			Color.TryParseHexString ("#870000E4", out redSplashColor);
-			Color.TryParseHexString ("#001187E4", out blueSplashColor);
+			redSplashColor = new Color(241, 47, 47);
+			blueSplashColor = new Color(53, 46, 240);
+			//Color.TryParseHexString ("#870000E4", out redSplashColor);
+			//Color.TryParseHexString ("#001187E4", out blueSplashColor);
 			screenSplash = faderScreen.GetComponent<Image> ();
 			screenSplash.color = redSplashColor;
 			levelImage.SetActive (false);
