@@ -8,7 +8,10 @@ public class SmoothCamera2D : MonoBehaviour {
 
 	
 	void Update() {
-		if (target.position.y <= -2.5f)
-		this.transform.position = new Vector3(transform.position.x, target.position.y + yOffset, transform.position.z);
+		if(target){
+			if (target.position.y <= -2.5f)
+			this.transform.position = new Vector3(transform.position.x, target.position.y + yOffset, transform.position.z);
+		}
+		
 	}
 }

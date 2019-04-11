@@ -14,8 +14,8 @@ namespace Drill
 		[HideInInspector]public bool levelWin = false;
 		private Light stateLight;
 		private Color newColor;
-		private Color redLight= new Color(244, 66, 217);
-		private Color greenLight=new Color(244, 66, 217);
+		private Color redLight= new Color(255, 0, 0);
+		private Color greenLight= new Color(0, 255, 0);
 		private Vector2 fingerPos;
 		private Animator blockAnimator;
 		private bool canMove = true;
@@ -144,7 +144,7 @@ namespace Drill
 
 			//LightPong (red light when damaged)
 			if (life <= 40)
-				stateLight.intensity = Mathf.PingPong (Time.time * 8f, 5);
+				stateLight.intensity = Mathf.PingPong (Time.time * 0.5f, 0.3f);
 
 		}
 

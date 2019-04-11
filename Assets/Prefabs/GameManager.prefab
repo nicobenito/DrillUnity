@@ -3,25 +3,27 @@
 --- !u!1 &101422
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
   m_Component:
-  - 4: {fileID: 439070}
-  - 114: {fileID: 11425978}
-  - 114: {fileID: 11447356}
+  - component: {fileID: 439070}
+  - component: {fileID: 11425978}
+  - component: {fileID: 11447356}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &439070
 Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 101422}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -29,23 +31,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &11425978
 MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 101422}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c216e7c4126dca7478e19e7933a160e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 188838, guid: d69e15d930adae64c934dab3b205387f, type: 2}
+  canvas: {fileID: 188838, guid: d69e15d930adae64c934dab3b205387f, type: 3}
 --- !u!114 &11447356
 MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 101422}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -53,27 +58,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floorTiles:
-  - {fileID: 175630, guid: 7387d0e60b4221e45b9e9a7013b405cb, type: 2}
+  - {fileID: 175630, guid: 7387d0e60b4221e45b9e9a7013b405cb, type: 3}
   blockTiles:
-  - {fileID: 142714, guid: 80df796af8306bf47a1387bed211d1e0, type: 2}
-  - {fileID: 128164, guid: f1e96e52449cb5948b491e6716566d7b, type: 2}
-  nextLevel: {fileID: 138644, guid: da28d12ee0dbd6e4599b426d6d776aae, type: 2}
---- !u!1001 &100100000
-Prefab:
-  m_ObjectHideFlags: 1
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 0}
-      propertyPath: playerRef
-      value: 
-      objectReference: {fileID: 145570, guid: 8a6a17a97b55dc84aade9409c2fdefa1, type: 2}
-    - target: {fileID: 0}
-      propertyPath: canvas
-      value: 
-      objectReference: {fileID: 188838, guid: d69e15d930adae64c934dab3b205387f, type: 2}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 101422}
-  m_IsPrefabParent: 1
+  - {fileID: 142714, guid: 80df796af8306bf47a1387bed211d1e0, type: 3}
+  - {fileID: 128164, guid: f1e96e52449cb5948b491e6716566d7b, type: 3}
+  nextLevel: {fileID: 138644, guid: da28d12ee0dbd6e4599b426d6d776aae, type: 3}

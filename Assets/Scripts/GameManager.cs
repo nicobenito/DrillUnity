@@ -4,7 +4,8 @@ using System.Collections;
 namespace Drill
 {
 	using System.Collections.Generic;       //Allows us to use Lists. 
-	using UnityEngine.UI;
+    using UnityEngine.SceneManagement;
+    using UnityEngine.UI;
 
 	public class GameManager : MonoBehaviour
 	{
@@ -14,6 +15,8 @@ namespace Drill
 		//level and score, constant trough reset
 		private int level = 1;
 		private int score = 0;
+
+		private int preScore = 0;
 		private bool isGameOver = false;
 		//player
 		private GameObject playerRef;
@@ -48,7 +51,7 @@ namespace Drill
 			boardScript = GetComponent<BoardManager>();
 
 			//IMPORTANT! This is just for development, on production delete!
-			InitGame();
+			//InitGame();
 		}
 		//To restart or level change
 		void OnLevelWasLoaded()
@@ -60,7 +63,7 @@ namespace Drill
 		//Initializes the game for each level.
 		public void InitGame()
 		{
-			Instantiate (canvas);
+			Instantiate(canvas);
 			mainCamera = GameObject.Find ("Main Camera 2");
 			//set Level number
 			levelNumber = GameObject.Find ("LevelNumber").GetComponent<Text> ();
@@ -69,6 +72,7 @@ namespace Drill
 			playerRef = GameObject.Find ("Player");
 			playerController = playerRef.GetComponent<PlayerController>();
 			playerController.score = score;
+			preScore = score;
 			prePlayerLife = playerController.life;
 			levelImage = GameObject.Find ("LevelImage");
 			faderScreen = GameObject.Find ("FaderScreen");
@@ -78,8 +82,8 @@ namespace Drill
 			//Color.TryParseHexString ("#001187E4", out blueSplashColor);
 			screenSplash = faderScreen.GetComponent<Image> ();
 			screenSplash.color = redSplashColor;
-			levelImage.SetActive (false);
 			faderScreen.SetActive (false);
+			levelImage.SetActive (false);
 			playerLifeText = GameObject.Find ("LifePlayer").GetComponent<Text>();
 			playerScoreText = GameObject.Find ("ScorePlayer").GetComponent<Text>();
 			//Call the SetupScene function of the BoardManager script, pass it current level number.
@@ -92,13 +96,12 @@ namespace Drill
 
 		public void Restart()
 		{
-			Application.LoadLevel (Application.loadedLevel);
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
 
 		public void GoMenu()
 		{
-			Application.LoadLevel ("MainMenu");
-			Destroy (instance);
+			SceneManager.LoadScene("MainMenu");
 		}
 
 		private void CleanBlocks()
@@ -146,7 +149,7 @@ namespace Drill
 			if (screenSplash.color.a <= 0.05f) 
 			{
 				prePlayerLife = playerController.life;
-				score = playerController.score;
+				preScore = playerController.score;
 				screenSplash.color = redSplashColor;
 				faderScreen.SetActive(false);
 				playerLifeText.transform.localScale = new Vector3 (1f,1f,1f);
@@ -163,12 +166,15 @@ namespace Drill
 			if (playerController.life <= 0)
 				CleanBlocks ();
 
-            if (!isGameOver && !playerController.isAlive)
-				Invoke ("GameOver", 1.5f);
+            if (!isGameOver && !playerController.isAlive) {
+				isGameOver = true;
+				GameOver();
+			}
 			if (playerController.life != prePlayerLife)
 				HitWarning (redSplashColor,"life");
-			if (score != playerController.score)
+			if (preScore != playerController.score)
 				HitWarning (blueSplashColor,"score");
+			
 			//GameOver ();
 			if (isGameOver && Input.GetKey (KeyCode.Backspace)) 
 			{

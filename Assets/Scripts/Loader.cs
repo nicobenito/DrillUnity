@@ -12,5 +12,12 @@ namespace Drill
 			if (GameManager.instance == null)
 				Instantiate(gameManager);
 		}
+
+		public void GoMenu()
+		{
+			GameObject gm = GameObject.FindGameObjectWithTag("GameManager");
+			Destroy (gm);
+            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+		} 
 	}
 }

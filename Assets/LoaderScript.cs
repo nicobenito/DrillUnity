@@ -6,6 +6,6 @@ public class LoaderScript : MonoBehaviour {
 
 	public void StartGame()
 	{
-		Application.LoadLevel ("Main");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
 	}
 }

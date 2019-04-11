@@ -714,7 +714,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11425978, guid: 210a60aef0462624da5b3b25a2e57c0c, type: 3}
+      - m_Target: {fileID: 11423314, guid: e8bc708bf7f544e4c9daca0c2961622f, type: 3}
         m_MethodName: GoMenu
         m_Mode: 1
         m_Arguments:
